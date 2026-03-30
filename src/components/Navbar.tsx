@@ -25,7 +25,7 @@ const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -44,17 +44,17 @@ const Navbar = () => {
   // Apply the same behavior to all pages
   const isTransparent = !isScrolled;
 
-  const navbarBg = isScrolled 
-    ? 'bg-card shadow-lg' 
+  const navbarBg = isScrolled
+    ? 'bg-card shadow-lg'
     : 'bg-transparent';
 
   const textColor = isTransparent ? 'text-primary-foreground' : 'text-secondary';
   const logoTextColor = isTransparent ? 'text-primary-foreground' : 'text-secondary';
 
   return (
-    <header className="fixed top-2 xl:top-6 left-0 right-0 z-50 px-2 sm:px-2 lg:px-4 xl:px-[100px]">
-      <nav 
-        className={`${navbarBg} w-full mx-auto max-w-[1550px] rounded-full px-4 sm:px-4 lg:px-4 xl:px-[20px]`}
+    <header className="fixed top-2 xl:top-6 left-0 right-0 z-50 px-2 sm:px-4 lg:px-6 xl:px-[100px]">
+      <nav
+        className={`${navbarBg} w-full mx-auto max-w-[1550px] transition-all duration-500 ease-in-out rounded-full px-4 sm:px-4 lg:px-4 xl:px-[20px]`}
       >
         <div className="flex items-center justify-between h-[60px] lg:h-[80px]">
           {/* Logo */}
@@ -71,9 +71,8 @@ const Navbar = () => {
               <Link
                 key={item.to}
                 to={item.to}
-                className={`text-[16px] font-medium transition-colors duration-300 hover:text-primary ${
-                  location.pathname === item.to ? 'text-primary' : textColor
-                }`}
+                className={`text-[16px] font-medium transition-colors duration-300 hover:text-primary ${location.pathname === item.to ? 'text-primary' : textColor
+                  }`}
               >
                 {item.label}
               </Link>
@@ -101,10 +100,9 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu Overlay */}
-        <div 
-          className={`xl:hidden fixed inset-0 bg-[#00ADEE] z-50 transition-transform duration-500 ease-in-out ${
-            menuOpen ? 'translate-y-0' : '-translate-y-full'
-          }`}
+        <div
+          className={`xl:hidden fixed inset-0 bg-[#00ADEE] z-50 transition-transform duration-500 ease-in-out ${menuOpen ? 'translate-y-0' : '-translate-y-full'
+            }`}
         >
           <div className="flex flex-col h-full pt-[120px] px-6">
             <div className="flex flex-col gap-6">
