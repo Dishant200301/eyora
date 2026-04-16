@@ -6,6 +6,7 @@ import ServiceTestimonials from '@/modules/core/components/ServiceTestimonials';
 import TrustedCareSection from '@/modules/core/components/TrustedCareSection';
 import WhyChooseSection from '@/modules/core/components/WhyChooseSection';
 import BlogSection from '@/modules/core/components/BlogSection';
+import ExpertiseSection from '@/modules/services/components/ExpertiseSection';
 
 const Appointment = () => {
   return (
@@ -18,12 +19,10 @@ const Appointment = () => {
         <PageBanner title="Book an Appointment" breadcrumbs={[{ label: 'Home', to: '/' }, { label: 'Book Appointment' }]} />
         
         <AppointmentForm />
-
-        <WhyChooseSection />
+        <ExpertiseSection/>
         <TrustedCareSection />
         <ServiceFAQSection />
         <ServiceTestimonials />
-        <BlogSection />
       </div>
     </>
   );

@@ -20,14 +20,10 @@ const Pricing = () => {
         <PageBanner title="Our pricing" breadcrumbs={[{ label: 'Home', to: '/' }, { label: 'Pricing Plan' }]} />
 
         <PricingCards />
-
-        <WhyChooseSection />
         <PricingAppointmentBlock />
         <TrustedCareSection />
         <ServiceFAQSection />
         <ServiceTestimonials />
-        <BlogSection />
-        <AppointmentSection />
       </div>
     </>
   );

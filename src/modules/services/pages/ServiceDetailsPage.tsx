@@ -312,9 +312,6 @@ const ServiceDetails = () => {
             </div>
           </div>
         </section>
-        <ServiceTestimonials />
-        <BlogSection />
-        <AppointmentSection />
       </div>
     </>
   );

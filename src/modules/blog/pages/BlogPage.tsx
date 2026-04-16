@@ -39,10 +39,6 @@ const Blog = () => (
           ))}
         </div>
       </section>
-      
-      <WhyChooseSection />
-      <ServiceTestimonials />
-      <AppointmentSection />
     </div>
   </>
 );

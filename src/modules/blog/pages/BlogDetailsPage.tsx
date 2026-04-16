@@ -158,8 +158,6 @@ const BlogDetails = () => {
             </div>
           </AnimateOnScroll>
         </section>
-        <ServiceTestimonials />
-        <AppointmentSection />
       </div>
     </>
   );

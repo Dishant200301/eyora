@@ -22,10 +22,6 @@ const Contact = () => {
             <ContactForm />
           </div>
         </section>
-
-        <ServiceFAQSection />
-        <ServiceTestimonials />
-        <AppointmentSection />
       </div>
     </>
   );

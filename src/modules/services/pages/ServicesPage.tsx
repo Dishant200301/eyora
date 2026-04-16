@@ -60,12 +60,9 @@ const Services = () => (
       </section>
 
       <ExpertiseSection />
-      <WhyChooseSection />
       <TrustedCareSection />
       <ServiceFAQSection />
       <ServiceTestimonials />
-      <BlogSection />
-      <AppointmentSection />
     </div>
   </>
 );
