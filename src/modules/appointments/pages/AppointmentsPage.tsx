@@ -4,8 +4,6 @@ import AppointmentForm from '../components/AppointmentForm';
 import ServiceFAQSection from '@/modules/core/components/ServiceFAQSection';
 import ServiceTestimonials from '@/modules/core/components/ServiceTestimonials';
 import TrustedCareSection from '@/modules/core/components/TrustedCareSection';
-import WhyChooseSection from '@/modules/core/components/WhyChooseSection';
-import BlogSection from '@/modules/core/components/BlogSection';
 import ExpertiseSection from '@/modules/services/components/ExpertiseSection';
 
 const Appointment = () => {

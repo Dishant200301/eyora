@@ -4,9 +4,6 @@ import { blogDetailsData } from '../data';
 import AnimateOnScroll from '@/modules/core/components/AnimateOnScroll';
 import { Link } from 'react-router-dom';
 import ArrowIcon from '@/modules/core/components/ArrowIcon';
-import WhyChooseSection from '@/modules/core/components/WhyChooseSection';
-import ServiceTestimonials from '@/modules/core/components/ServiceTestimonials';
-import AppointmentSection from '@/modules/core/components/AppointmentSection';
 
 const Blog = () => (
   <>

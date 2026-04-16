@@ -2,9 +2,6 @@ import { Helmet } from 'react-helmet-async';
 import PageBanner from '@/modules/core/components/PageBanner';
 import ContactCards from '../components/ContactCards';
 import ContactForm from '../components/ContactForm';
-import ServiceFAQSection from '@/modules/core/components/ServiceFAQSection';
-import ServiceTestimonials from '@/modules/core/components/ServiceTestimonials';
-import AppointmentSection from '@/modules/core/components/AppointmentSection';
 
 const Contact = () => {
   return (

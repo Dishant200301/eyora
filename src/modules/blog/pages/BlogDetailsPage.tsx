@@ -3,8 +3,6 @@ import { useParams, Link } from 'react-router-dom';
 import AnimateOnScroll from '@/modules/core/components/AnimateOnScroll';
 import { Calendar, Tag, Facebook, Twitter, Linkedin } from 'lucide-react';
 import { blogDetailsData } from '../data';
-import ServiceTestimonials from '@/modules/core/components/ServiceTestimonials';
-import AppointmentSection from '@/modules/core/components/AppointmentSection';
 
 const BlogDetails = () => {
   const { id } = useParams();

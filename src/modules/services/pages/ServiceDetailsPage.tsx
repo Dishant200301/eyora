@@ -7,9 +7,6 @@ import PageBanner from '@/modules/core/components/PageBanner';
 import AnimateOnScroll from '@/modules/core/components/AnimateOnScroll';
 import { services, serviceDetailsData } from '../data';
 import ArrowIcon from '@/modules/core/components/ArrowIcon';
-import ServiceTestimonials from '@/modules/core/components/ServiceTestimonials';
-import BlogSection from '@/modules/core/components/BlogSection';
-import AppointmentSection from '@/modules/core/components/AppointmentSection';
 
 const Counter = ({ end, duration = 2000 }: { end: string; duration?: number }) => {
   const [count, setCount] = useState(0);
