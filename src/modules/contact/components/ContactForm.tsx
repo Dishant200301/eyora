@@ -1,21 +1,53 @@
 import { useState } from 'react';
+import { Loader2 } from 'lucide-react';
 import AnimateOnScroll from '@/modules/core/components/AnimateOnScroll';
+import { API_BASE_URL, getPublicHeaders } from '@/modules/appointments/utils/apiConfig';
 
 const ContactForm = () => {
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '', phone: '', message: '' });
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setHasSubmitted(true);
-    const hasErrors = Object.values(form).some(v => v.trim() === '');
+    const hasErrors = Object.values(form).some(v => typeof v === 'string' && v.trim() === '');
     
-    if (!hasErrors) {
-      setIsSuccess(true);
-      // Optional: Handle API submission logic here
-    } else {
+    if (hasErrors) {
       setIsSuccess(false);
+      return;
+    }
+    
+    setIsLoading(true);
+    try {
+      const payload = {
+        name: `${form.firstName} ${form.lastName}`,
+        email: form.email,
+        phone: form.phone,
+        message: form.message,
+        subject: 'Contact Form Inquiry',
+        source: 'eyora-website'
+      };
+
+      const resp = await fetch(`${API_BASE_URL}/contact-inquiries`, {
+        method: 'POST',
+        headers: getPublicHeaders(),
+        body: JSON.stringify(payload)
+      });
+      const data = await resp.json();
+      if(data.success) {
+        setIsSuccess(true);
+        setForm({ firstName: '', lastName: '', email: '', phone: '', message: '' });
+        setHasSubmitted(false);
+      } else {
+        alert(data.message || 'Error sending message');
+      }
+    } catch(e) {
+      console.error(e);
+      alert('Network Error');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -132,9 +164,10 @@ const ContactForm = () => {
             <div className="pt-[10px]">
               <button 
                 type="submit" 
-                className="w-full sm:w-auto px-[35px] py-[18px] rounded-[100px] text-white text-[16px] font-bold transition-colors duration-300 bg-[#00ADEE] hover:bg-[#15224D] inline-block"
+                disabled={isLoading}
+                className="w-full sm:w-auto px-[35px] h-[58px] flex items-center justify-center rounded-[100px] text-white text-[16px] font-bold transition-colors duration-300 bg-[#00ADEE] hover:bg-[#15224D] inline-flex disabled:opacity-70"
               >
-                Submit Message
+                {isLoading ? <Loader2 className="w-5 h-5 animate-spin mx-4" /> : 'Submit Message'}
               </button>
             </div>
 

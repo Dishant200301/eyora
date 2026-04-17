@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, User } from 'lucide-react';
 import EyoraButton from './EyoraButton';
+import { useWebAuth } from '@/modules/auth/context/WebAuthContext';
 
 const navItems = [
   { label: 'Home', to: '/' },
@@ -12,6 +13,7 @@ const navItems = [
 ];
 
 const Navbar = () => {
+  const { user, logout } = useWebAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -41,10 +43,11 @@ const Navbar = () => {
     };
   }, [menuOpen]);
 
-  // Apply the same behavior to all pages
-  const isTransparent = !isScrolled;
+  // Fix: Don't use transparent navbar on certain pages where background is already light/white
+  const isWhitePage = ['/login', '/register', '/dashboard', '/profile'].includes(location.pathname);
+  const isTransparent = !isScrolled && !isWhitePage;
 
-  const navbarBg = isScrolled
+  const navbarBg = !isTransparent
     ? 'bg-card shadow-lg'
     : 'bg-transparent';
 
@@ -81,7 +84,40 @@ const Navbar = () => {
 
           {/* CTA + Mobile Toggle */}
           <div className="flex items-center gap-4">
-            <div className="hidden xl:block">
+            <div className="hidden xl:flex items-center gap-4">
+              {user ? (
+                <div className="relative group/profile">
+                  <div className={`flex items-center gap-2 font-medium bg-gray-100 hover:bg-gray-200 text-[#15224D] px-5 py-[11px] rounded-full transition-all duration-300 cursor-pointer`}>
+                    <User className="w-5 h-5 text-[#00ADEE]" /> {user.name.split(' ')[0]}
+                  </div>
+                  
+                  {/* Dropdown Menu */}
+                  <div className="absolute top-[calc(100%+0px)] right-0 pt-4 opacity-0 invisible group-hover/profile:opacity-100 group-hover/profile:visible transition-all duration-300 transform translate-y-2 group-hover/profile:translate-y-0 z-50">
+                    <div className="bg-white rounded-[20px] shadow-[0_15px_50px_rgba(21,34,77,0.15)] overflow-hidden min-w-[200px] border border-gray-100">
+                      <div className="px-6 py-4 bg-gray-50 border-b border-gray-100">
+                        <p className="text-[14px] font-bold text-[#15224D] truncate">{user.name}</p>
+                        <p className="text-[12px] text-[#868E96] truncate">{user.email}</p>
+                      </div>
+                      <Link to="/profile" className="flex items-center gap-3 px-6 py-4 text-[#15224D] hover:bg-gray-50 hover:text-[#00ADEE] transition-all font-medium">
+                        <User className="w-4 h-4" /> My Profile
+                      </Link>
+                      <button 
+                        onClick={() => {
+                          logout();
+                          window.location.href = '/'; // Simple hard redirect to clear state and go home
+                        }} 
+                        className="w-full flex items-center gap-3 px-6 py-4 text-[#FA6E6E] hover:bg-red-50 transition-all font-medium text-left border-t border-gray-100"
+                      >
+                        <X className="w-4 h-4" /> Sign Out
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link to="/login" className={`font-medium ${textColor} hover:text-primary transition-colors pr-2`}>
+                  Login
+                </Link>
+              )}
               <EyoraButton to="/appointment" text="Book Appointment" hoverStyle={isTransparent ? "default" : "darkBlue"} />
             </div>
             <button
@@ -116,6 +152,35 @@ const Navbar = () => {
                   {item.label}
                 </Link>
               ))}
+              <Link
+                to="/appointment"
+                className="text-white text-[22px] font-medium transition-colors"
+                onClick={() => setMenuOpen(false)}
+              >
+                Appointment
+              </Link>
+              <div className="w-full h-px bg-white/20 my-2" />
+              {user ? (
+                <>
+                  <Link to="/profile" className="text-white text-[22px] font-medium transition-colors flex items-center gap-2" onClick={() => setMenuOpen(false)}>
+                    <User size={24} /> My Profile
+                  </Link>
+                  <button 
+                    onClick={() => {
+                      logout();
+                      setMenuOpen(false);
+                      window.location.href = '/';
+                    }} 
+                    className="text-white/80 text-[22px] font-medium transition-colors flex items-center gap-2 text-left"
+                  >
+                    <X size={24} /> Sign Out
+                  </button>
+                </>
+              ) : (
+                <Link to="/login" className="text-white text-[22px] font-medium transition-colors" onClick={() => setMenuOpen(false)}>
+                  Login / Sign Up
+                </Link>
+              )}
             </div>
           </div>
         </div>

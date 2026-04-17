@@ -15,14 +15,22 @@ import { AppointmentsPage } from "./modules/appointments";
 import { TeamPage, TeamDetailsPage } from "./modules/team";
 import { PricingPage } from "./modules/pricing";
 
+import LoginPage from "./modules/auth/pages/LoginPage";
+import RegisterPage from "./modules/auth/pages/RegisterPage";
+import PatientDashboard from "./modules/profile/pages/PatientDashboard";
+import { WebAuthProvider } from "./modules/auth/context/WebAuthContext";
+import { ProfilePage } from "./modules/auth/pages/ProfilePage";
+import ProtectedRoute from "./modules/auth/components/ProtectedRoute";
+
 const queryClient = new QueryClient();
 
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
+      <WebAuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
         <BrowserRouter>
           <Routes>
             <Route element={<Layout />}>
@@ -37,11 +45,30 @@ const App = () => (
               <Route path="/team" element={<TeamPage />} />
               <Route path="/team/:id" element={<TeamDetailsPage />} />
               <Route path="/pricing" element={<PricingPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route 
+                path="/dashboard" 
+                element={
+                  <ProtectedRoute>
+                    <PatientDashboard />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/profile" 
+                element={
+                  <ProtectedRoute>
+                    <ProfilePage />
+                  </ProtectedRoute>
+                } 
+              />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
+      </WebAuthProvider>
     </QueryClientProvider>
   </HelmetProvider>
 );
